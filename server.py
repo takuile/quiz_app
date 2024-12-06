@@ -27,7 +27,7 @@ questions = [
     }
 ]
 
-async def counter_server(websocket, path):
+async def counter_server(websocket):
     # 新しいクライアントが接続
     connected_users.add(websocket)
     print('ユーザーが接続しました。')

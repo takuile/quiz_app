@@ -18,6 +18,7 @@ class MatchPage extends StatefulWidget {
 class _MatchPageState extends State<MatchPage> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   String _name = 'Unknown';
+  String _icon = 'assets/icons/pyoko1-1_smile.png';
   late WebSocketChannel channel;
   int connectedUsers = 0;
   String _question = '';
@@ -68,6 +69,7 @@ class _MatchPageState extends State<MatchPage> {
       if (result.docs.isNotEmpty) {
         setState(() {
           _name = result.docs.first['name'];
+          _icon = result.docs.first['icon'];
         });
       }
     }
@@ -281,13 +283,13 @@ class _MatchPageState extends State<MatchPage> {
 
   void _showErrorSnackbar(String message) {
     if (mounted) {
-      showErrorSnackbar(context, message);
+      showErrorSnackbar(context, message, _icon);
     }
   }
 
   void _showNormallySnackbar(String message) {
     if (mounted) {
-      showNormallySnackBar(context, message);
+      showNormallySnackBar(context, message, _icon);
     }
   }
 }

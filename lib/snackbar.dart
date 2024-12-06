@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void showErrorSnackbar(BuildContext context, String message) {
+void showErrorSnackbar(BuildContext context, String message, String icon) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
   final snackBar = SnackBar(
@@ -11,9 +11,20 @@ void showErrorSnackbar(BuildContext context, String message) {
       side: BorderSide(color: Colors.red),
       borderRadius: BorderRadius.all(Radius.circular(5.0)),
     ),
-    content: Text(
-      message,
-      style: TextStyle(color: Colors.red[900]),
+    content: Row(
+      children: [
+        const SizedBox(width: 5),
+        Image.asset(
+          'assets/icons/$icon',
+          width: 24,
+          height: 24,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          message,
+          style: TextStyle(color: Colors.red[900]),
+        ),
+      ],
     ),
     action: SnackBarAction(
       textColor: Colors.red[900],
@@ -21,7 +32,7 @@ void showErrorSnackbar(BuildContext context, String message) {
       onPressed: () {},
     ),
     margin: EdgeInsets.only(
-      bottom: MediaQuery.of(context).size.height - 170,
+      bottom: MediaQuery.of(context).size.height - 180,
       left: 16,
       right: 16,
     ),
@@ -30,7 +41,7 @@ void showErrorSnackbar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }
 
-void showNormallySnackBar(BuildContext context, String message) {
+void showNormallySnackBar(BuildContext context, String message, String icon) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
   
   final snackBar = SnackBar(
@@ -41,9 +52,20 @@ void showNormallySnackBar(BuildContext context, String message) {
       side: BorderSide(color: Colors.blue),
       borderRadius: BorderRadius.all(Radius.circular(5.0)),
     ),
-    content: Text(
-      message,
-      style: TextStyle(color: Colors.blue[900]),
+       content: Row(
+      children: [
+        const SizedBox(width: 5),
+        Image.asset(
+          'assets/icons/$icon',
+          width: 24,
+          height: 24,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          message,
+          style: TextStyle(color: Colors.blue[900]),
+        ),
+      ],
     ),
     action: SnackBarAction(
       textColor: Colors.blue[900],
@@ -51,7 +73,7 @@ void showNormallySnackBar(BuildContext context, String message) {
       onPressed: () {},
     ),
     margin: EdgeInsets.only(
-      bottom: MediaQuery.of(context).size.height - 170,
+      bottom: MediaQuery.of(context).size.height - 180,
       left: 16,
       right: 16,
     ),
