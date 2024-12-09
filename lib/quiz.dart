@@ -32,6 +32,7 @@ class _QuizPageState extends State<QuizPage> {
   bool _isSoundOn = false;
   bool _isVoiceOn = false;
   late SpeechToText _speechToText;
+  bool _like = false;
 
   @override
   void initState() {
@@ -179,6 +180,21 @@ class _QuizPageState extends State<QuizPage> {
     }
   }
 
+  Future<void> _saveLike() async {
+    final snapshot = await firestore
+        .collection('users')
+        .where('deviceId', isEqualTo: widget.deviceId)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      final userRef = firestore.collection('users').doc(snapshot.docs.first.id);
+      await userRef.collection('likes').add({
+        'question': _question,
+        'options': _options,
+        'correctAnswerIndex': _correctAnswerIndex,
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -254,6 +270,23 @@ class _QuizPageState extends State<QuizPage> {
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 320,
+                      right: 20,
+                      child: IconButton(
+                        icon: Icon(
+                          _like ? Icons.favorite : Icons.favorite_border,
+                        ),
+                        onPressed: () {
+                          if (!_like) {
+                            setState(() {
+                              _like = true;
+                            });
+                            _saveLike();
+                          }
+                        },
                       ),
                     ),
                     if (_options.length == 4)
